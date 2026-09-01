@@ -93,13 +93,21 @@ class TestDefinedStateTrue(object):
         assert len(list_unscaled_variables(m.fs.state[0])) == 0
         assert len(list_unscaled_constraints(m.fs.state[0])) == 0
 
-        assert jacobian_cond(m.fs.state[0], scaled=False) == pytest.approx(2.884529e6, rel=1e-3)
-        assert jacobian_cond(m.fs.state[0], scaled=True) == pytest.approx(48.28557, rel=1e-3)
+        assert jacobian_cond(m.fs.state[0], scaled=False) == pytest.approx(
+            2.884529e6, rel=1e-3
+        )
+        assert jacobian_cond(m.fs.state[0], scaled=True) == pytest.approx(
+            48.28557, rel=1e-3
+        )
 
         m.fs.state[0].conc_mass_comp.unfix()
 
-        assert jacobian_cond(m.fs.state[0], scaled=False) == pytest.approx(2.884511e6, rel=1e-3)
-        assert jacobian_cond(m.fs.state[0], scaled=True) == pytest.approx(57.05977, rel=1e-3)
+        assert jacobian_cond(m.fs.state[0], scaled=False) == pytest.approx(
+            2.884511e6, rel=1e-3
+        )
+        assert jacobian_cond(m.fs.state[0], scaled=True) == pytest.approx(
+            57.05977, rel=1e-3
+        )
 
 
 class TestDefinedStateFalse(object):
@@ -178,10 +186,18 @@ class TestDefinedStateFalse(object):
         assert len(list_unscaled_variables(m.fs.state[0])) == 0
         assert len(list_unscaled_constraints(m.fs.state[0])) == 0
 
-        assert jacobian_cond(m.fs.state[0], scaled=False) == pytest.approx(2.913897e6, rel=1e-3)
-        assert jacobian_cond(m.fs.state[0], scaled=True) == pytest.approx(51.29104, rel=1e-3)
+        assert jacobian_cond(m.fs.state[0], scaled=False) == pytest.approx(
+            2.913897e6, rel=1e-3
+        )
+        assert jacobian_cond(m.fs.state[0], scaled=True) == pytest.approx(
+            51.29104, rel=1e-3
+        )
 
         m.fs.state[0].conc_mass_comp.unfix()
 
-        assert jacobian_cond(m.fs.state[0], scaled=False) == pytest.approx(2.913884e6, rel=1e-3)
-        assert jacobian_cond(m.fs.state[0], scaled=True) == pytest.approx(60.36033, rel=1e-3)
+        assert jacobian_cond(m.fs.state[0], scaled=False) == pytest.approx(
+            2.913884e6, rel=1e-3
+        )
+        assert jacobian_cond(m.fs.state[0], scaled=True) == pytest.approx(
+            60.36033, rel=1e-3
+        )
