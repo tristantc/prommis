@@ -4,15 +4,12 @@
 # University of California, through Lawrence Berkeley National Laboratory, et al. All rights reserved.
 # Please see the files COPYRIGHT.md and LICENSE.md for full copyright and license information.
 #####################################################################################################
-from pyomo.environ import ConcreteModel, Constraint, Var
-
-from idaes.core import FlowsheetBlock
-
 import pytest
+from idaes.core import FlowsheetBlock
+from pyomo.environ import ConcreteModel, Constraint, Var
+from pyomo.util.check_units import assert_units_consistent
 
 from prommis.precipitate.precipitate_liquid_properties import AqueousParameter
-
-from pyomo.util.check_units import assert_units_consistent
 
 
 @pytest.mark.unit
