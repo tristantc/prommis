@@ -66,8 +66,9 @@ class HClStrippingPropertiesScaler(CustomScalerBase):
         # smaller steps
         "pH_phase": 10,
     }
-    for comp in ["H2O", "H", "Cl", "SO4", "HSO4"]:
-        DEFAULT_SCALING_FACTORS[f"flow_mass_comp[{comp}]"] = 1e-3
+    # Note: flow_mass_comp scaling factors are derived automatically in
+    # variable_scaling_routine via scale_variable_by_definition_constraint,
+    # so no default scaling factors are declared for it here.
     for ree in _ree_list:
         DEFAULT_SCALING_FACTORS[f"conc_mass_comp[{ree}]"] = 0.1
     for contaminant in _gangue_list:
@@ -183,7 +184,7 @@ class HClStrippingParameterData(PhysicalParameterBlock):
         # TODO add surrogate model/equation
         self.split = Param(
             self.component_list,
-            units=units.kg / units.kg,
+            units=units.dimensionless,
             initialize={
                 "H2O": 1e-20,
                 "Sc": 31.61,
