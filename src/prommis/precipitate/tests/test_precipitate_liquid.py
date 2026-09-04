@@ -12,6 +12,8 @@ import pytest
 
 from prommis.precipitate.precipitate_liquid_properties import AqueousParameter
 
+from pyomo.util.check_units import assert_units_consistent
+
 
 @pytest.mark.unit
 def test_build():
@@ -27,8 +29,12 @@ def test_build():
     assert isinstance(m.fs.state[0].flow_vol, Var)
     assert isinstance(m.fs.state[0].conc_mass_comp, Var)
     assert isinstance(m.fs.state[0].flow_mol_comp, Var)
+    assert isinstance(m.fs.state[0].flow_mass_comp, Var)
 
     assert isinstance(m.fs.state[0].flow_mol_constraint, Constraint)
+    assert isinstance(m.fs.state[0].flow_mass_constraint, Constraint)
+
+    assert_units_consistent(m)
 
     m.fs.state[0].flow_vol.set_value(10)
     for i in m.fs.prec_sol.dissolved_elements:
