@@ -100,7 +100,7 @@ class AqueousParameterData(PhysicalParameterBlock):
                 "HSO4": 1e-20,
                 "SO4": 1e-20,
             },
-            doc="Percentage partition coefficients for each component between organic and aqueous phases [%]"
+            doc="Percentage partition coefficients for each component between organic and aqueous phases [%]",
         )
 
         self.mw = Param(
