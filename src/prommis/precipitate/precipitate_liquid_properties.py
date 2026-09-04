@@ -45,7 +45,7 @@ class AqueousParameterData(PhysicalParameterBlock):
     to Optimize Recovery of Rare Earth Elements from Acid Mine Drainage,
     Minerals, 2022, 12. 236
 
-    self.split can be substituted by surrogate model
+    The percentage partition coefficients (self.split) can be substituted by a surrogate model.
     """
 
     def build(self):
@@ -80,7 +80,7 @@ class AqueousParameterData(PhysicalParameterBlock):
         # TODO add surrogate model/equation
         self.split = Param(
             self.component_list,
-            units=units.kg / units.kg,
+            units=units.dimensionless,
             initialize={
                 "H2O": 1e-20,
                 "Sc": 31.61,
@@ -100,6 +100,7 @@ class AqueousParameterData(PhysicalParameterBlock):
                 "HSO4": 1e-20,
                 "SO4": 1e-20,
             },
+            doc="Percentage partition coefficients for each component between organic and aqueous phases [%]"
         )
 
         self.mw = Param(
@@ -279,7 +280,12 @@ class AqueousStateBlockkData(StateBlockData):
         iscale.set_scaling_factor(self.conc_mass_comp, 1e2)
         iscale.set_scaling_factor(self.flow_mol_comp, 1e3)
         iscale.set_scaling_factor(self.conc_mol_comp, 1e5)
-        iscale.set_scaling_factor(self.flow_mass_comp, 1e3)
+        # Set a different scaling factor for H2O since it is the dominant component in the solution
+        for comp in self.params.dissolved_elements:
+            if comp != "H2O":
+                iscale.set_scaling_factor(self.flow_mass_comp[comp], 1e6)
+            else:
+                iscale.set_scaling_factor(self.flow_mass_comp[comp], 1e2)
 
     def _dens_mass(self):
         add_object_reference(self, "dens_mass", self.params.dens_mass)
