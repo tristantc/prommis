@@ -45,10 +45,12 @@ class TestDefinedStateTrue(object):
         assert isinstance(m.fs.state[0].flow_vol, Var)
         assert isinstance(m.fs.state[0].conc_mass_comp, Var)
         assert isinstance(m.fs.state[0].flow_mol_comp, Var)
+        assert isinstance(m.fs.state[0].flow_mass_comp, Var)
         assert not m.fs.state[0].is_property_constructed("pH_phase")
 
         assert isinstance(m.fs.state[0].conc_mol_comp_eqn, Constraint)
         assert isinstance(m.fs.state[0].flow_mol_comp_eqn, Constraint)
+        assert isinstance(m.fs.state[0].flow_mass_comp_eqn, Constraint)
         assert not m.fs.state[0].is_property_constructed("h2o_concentration_eqn")
         assert not m.fs.state[0].is_property_constructed("pH_phase_eqn")
 
